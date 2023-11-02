@@ -3,11 +3,7 @@
     "description": "Happy lorem ipsym",
     "type": "symfony-bundle",
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "KnpU\\LoremIpsumBundle\\": "src/"
-        }
-    },
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Jurij Leshchuk",
@@ -16,5 +12,18 @@
     ],
     "require": {
         "php": "^7.1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "KnpU\\LoremIpsumBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KnpU\\LoremIpsumBundle\\Test\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^6.3"
     }
 }
