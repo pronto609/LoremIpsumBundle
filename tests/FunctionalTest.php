@@ -6,6 +6,7 @@ use KnpU\LoremIpsumBundle\KnpUIpsum;
 use KnpU\LoremIpsumBundle\KnpULoremIpsumBundle;
 use KnpU\LoremIpsumBundle\WordProviderInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
@@ -53,7 +54,8 @@ class KnpULoremIpsumTestingKernel extends Kernel
     public function registerBundles()
     {
         return [
-            new KnpULoremIpsumBundle()
+            new KnpULoremIpsumBundle(),
+            new FrameworkBundle()
         ];
     }
 
