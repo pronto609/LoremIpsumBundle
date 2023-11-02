@@ -1,0 +1,20 @@
+{
+    "name": "knpuinversity/lorem-ipsum-bundle",
+    "description": "Happy lorem ipsym",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "KnpU\\LoremIpsumBundle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jurij Leshchuk",
+            "email": "ddevdev609@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3"
+    }
+}
