@@ -2,6 +2,7 @@
 
 namespace KnpU\LoremIpsumBundle\DependencyInjection;
 
+use KnpU\LoremIpsumBundle\WordProviderInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -22,11 +23,12 @@ class KnpULoremIpsumExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $definition = $container->getDefinition('knpu-lorem-ipsum.knpu_ipsum');
-        if (null !== $config['word_provider']) {
-            $container->setAlias('knpu-lorem-ipsum.word_provider', $config['word_provider']);
-        }
         $definition->setArgument(1, $config['unicorns_are_real']);
         $definition->setArgument(2, $config['min_sunshine']);
+
+        $container->registerForAutoconfiguration(WordProviderInterface::class)
+            ->addTag('knpu_ipsum_word_prowider')
+        ;
     }
 
     public function getAlias()
