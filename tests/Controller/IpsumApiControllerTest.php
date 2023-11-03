@@ -42,7 +42,7 @@ class KnpULoremIpsumControllerKernel extends Kernel
 
     public function getCacheDir()
     {
-        return __DIR__ . '/cache/' . spl_object_hash($this);
+        return __DIR__ . '/../cache/' . spl_object_hash($this);
     }
 
 
