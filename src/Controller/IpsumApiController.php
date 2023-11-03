@@ -3,9 +3,10 @@
 namespace KnpU\LoremIpsumBundle\Controller;
 
 use KnpU\LoremIpsumBundle\Event\FilterApiResponseEvent;
+use KnpU\LoremIpsumBundle\Event\KnpULoremIsumEvents;
 use KnpU\LoremIpsumBundle\KnpUIpsum;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class IpsumApiController extends AbstractController
 {
@@ -14,13 +15,13 @@ class IpsumApiController extends AbstractController
      */
     private $knpUIpsum;
     /**
-     * @var EventDispatcher
+     * @var EventDispatcherInterface
      */
     private $eventDispatcher;
 
     public function __construct(
         KnpUIpsum $knpUIpsum,
-        ?EventDispatcher $eventDispatcher = null
+        EventDispatcherInterface $eventDispatcher = null
     ) {
         $this->knpUIpsum = $knpUIpsum;
         $this->eventDispatcher = $eventDispatcher;
@@ -35,7 +36,7 @@ class IpsumApiController extends AbstractController
 
         $event = new FilterApiResponseEvent($data);
         if ($this->eventDispatcher) {
-            $this->eventDispatcher->dispatch('knpu_lorem_ipsum.filter_api', $event);
+            $this->eventDispatcher->dispatch(KnpULoremIsumEvents::FILTER_API, $event);
         }
 
         return $this->json($event->getData());
