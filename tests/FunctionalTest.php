@@ -24,31 +24,14 @@ class FunctionalTest extends TestCase
         $this->assertInstanceOf(KnpUIpsum::class, $ipsum);
         $this->assertIsString('string', $ipsum->getParagraphs());
     }
-
-    public function testServiceWiringWithConfiguration()
-    {
-        $kernel = new KnpULoremIpsumTestingKernel([
-            'word_provider'=>'stub_word_list'
-        ]);
-        $kernel->boot();
-        $container = $kernel->getContainer();
-
-        $ipsum = $container->get('knpu-lorem-ipsum.knpu_ipsum');
-        $this->assertStringContainsString('stub', $ipsum->getWords(2));
-    }
 }
 
 class KnpULoremIpsumTestingKernel extends Kernel
 {
-    /**
-     * @var array
-     */
-    private $knpUIpsumConfig;
 
-    public function __construct(array $knpUIpsumConfig = [])
+    public function __construct()
     {
         parent::__construct('test', true);
-        $this->knpUIpsumConfig = $knpUIpsumConfig;
     }
 
     public function registerBundles()
@@ -62,9 +45,10 @@ class KnpULoremIpsumTestingKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load(function (ContainerBuilder $container) {
-            $container->register('stub_word_list', StubWordList::class);
+            $container->register('stub_word_list', StubWordList::class)
+                ->addTag('knpu_ipsum_word_prowider')
+            ;
 
-            $container->loadFromExtension('knpu_lorem_ipsum', $this->knpUIpsumConfig);
         });
     }
 
